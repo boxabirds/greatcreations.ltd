@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julian | Making AI Agents & Product Innovation | greatcreations.ltd</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --secondary: #3498DB;
+            --accent: #E74C3C;
+            --light: #ECF0F1;
+            --dark: #1A252F;
+            --highlight: #9B59B6;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: #f8f9fa;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--secondary), var(--highlight));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 28px;
+            padding-bottom: 20px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--secondary), var(--highlight));
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 5px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background-color: var(--accent);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--highlight));
+            transition: width 1.5s ease;
+        }
+        
+        .skill-tag {
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1s; }
+        
+        .experience-chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        /* Specific styles for PDF printing */
+        @media print {
+            .page-break {
+                margin-top: 2rem;
+            }
+            
+            body {
+                width: 100%;
+                height: auto;
+            }
+            
+            .animated {
+                opacity: 1;
+                transform: translateY(0);
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animated">Hello, I'm <span class="text-blue-400">Julian</span></h1>
+                    <p class="text-xl md:text-2xl mb-6 animated delay-1">Product Leader, Innovator & Entrepreneur</p>
+                    <p class="text-lg opacity-90 mb-8 animated delay-2">25+ years crafting digital experiences that push boundaries</p>
+                    <div class="flex flex-wrap gap-3 animated delay-3">
+                        <span class="px-4 py-2 bg-opacity-20 bg-white rounded-full text-sm">Innovation</span>
+                        <span class="px-4 py-2 bg-opacity-20 bg-white rounded-full text-sm">Technical Leadership</span>
+                        <span class="px-4 py-2 bg-opacity-20 bg-white rounded-full text-sm">Entrepreneurship</span>
+                        <span class="px-4 py-2 bg-opacity-20 bg-white rounded-full text-sm">AI Products</span>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center animated delay-4">
+                    <div class="w-72 h-72 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center p-1">
+                        <div class="bg-gray-900 rounded-full w-full h-full flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-brain text-7xl mb-4 text-blue-400"></i>
+                                <p class="text-lg font-semibold">Visionary Product Mind</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intro Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-center">My Product Journey</h2>
+            <p class="text-lg mb-6 animated">I don't just build products—I shape experiences that transform industries. From pioneering AI implementations to reimagining how users interact with technology, my career spans the evolution of the internet itself.</p>
+            <p class="text-lg mb-6 animated delay-1">What drives me? The perfect intersection of technical possibility, user needs, and business opportunity. That sweet spot where innovation becomes inevitable.</p>
+            <p class="text-lg animated delay-2">Having served as founder, CTO, and product leader across two decades, I've developed a sixth sense for products that matter. Whether working with startups or global giants like Google, my approach remains consistent: relentless focus on impact.</p>
+        </div>
+    </div>
+
+    <!-- Experience Visualization -->
+    <div class="container mx-auto px-4 py-10">
+        <div class="max-w-4xl mx-auto mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">Experience Breadth</h2>
+            <div class="experience-chart-container">
+                <canvas id="experienceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Highlighted Products -->
+    <div class="bg-gray-100 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Standout Products</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Teardrop -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card animated">
+                    <div class="bg-gradient-to-r from-purple-500 to-purple-700 px-6 py-4">
+                        <span class="inline-block px-2 py-1 bg-white bg-opacity-20 rounded-md text-xs text-white mb-2">B2C</span>
+                        <h3 class="text-xl font-bold text-white">Teardrop</h3>
+                        <p class="text-white opacity-90">Founder</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-4">Generate compelling video from music automatically using generative AI like Stable Diffusion</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">AI</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">Generative</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">2023</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Google Pitch Now -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card animated delay-1">
+                    <div class="bg-gradient-to-r from-blue-500 to-blue-700 px-6 py-4">
+                        <span class="inline-block px-2 py-1 bg-white bg-opacity-20 rounded-md text-xs text-white mb-2">Internal</span>
+                        <h3 class="text-xl font-bold text-white">Google Pitch Now</h3>
+                        <p class="text-white opacity-90">Product Manager, UX Designer</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-4">Frictionless creation of sales decks with embedded customer data and standard templates</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">Enterprise</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">15,000 users</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">2012-2014</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CognitionX -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card animated delay-2">
+                    <div class="bg-gradient-to-r from-green-500 to-green-700 px-6 py-4">
+                        <span class="inline-block px-2 py-1 bg-white bg-opacity-20 rounded-md text-xs text-white mb-2">B2B</span>
+                        <h3 class="text-xl font-bold text-white">CognitionX AI Product Search</h3>
+                        <p class="text-white opacity-90">Product Manager, Tech Lead</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-4">A searchable repository of AI products. Turned a dysfunctional team not delivering for 6 months into a weekly delivery machine.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">AI</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">Leadership</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">2017-2018</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Knowcast -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card animated delay-3">
+                    <div class="bg-gradient-to-r from-red-500 to-red-700 px-6 py-4">
+                        <span class="inline-block px-2 py-1 bg-white bg-opacity-20 rounded-md text-xs text-white mb-2">B2C</span>
+                        <h3 class="text-xl font-bold text-white">Knowcast</h3>
+                        <p class="text-white opacity-90">Founder</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-4">Mobile app to allow users to take notes from podcasts hands free while on the go</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">Mobile</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">Audio</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">2021-2022</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pensions for Alexa -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card animated delay-4">
+                    <div class="bg-gradient-to-r from-yellow-500 to-yellow-700 px-6 py-4">
+                        <span class="inline-block px-2 py-1 bg-white bg-opacity-20 rounded-md text-xs text-white mb-2">B2C</span>
+                        <h3 class="text-xl font-bold text-white">Pensions advice for Alexa</h3>
+                        <p class="text-white opacity-90">UX Designer, Product Manager</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-4">First experience working with voice technology and conversation design. UK Govt's first Alexa skill.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">Voice</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">Government</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">2016</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Friends Provident -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card animated delay-5">
+                    <div class="bg-gradient-to-r from-indigo-500 to-indigo-700 px-6 py-4">
+                        <span class="inline-block px-2 py-1 bg-white bg-opacity-20 rounded-md text-xs text-white mb-2">B2C, B2B</span>
+                        <h3 class="text-xl font-bold text-white">eSelect Insurance</h3>
+                        <p class="text-white opacity-90">Tech Lead Manager</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-4">First UK life insurance product with real time online underwriting. My first machine learning product.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">ML</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">11 awards</span>
+                            <span class="px-3 py-1 bg-gray-200 rounded-full">2003-2006</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold mb-12 text-center">Expertise Spectrum</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+            <div>
+                <h3 class="text-xl font-semibold mb-5">Technical Leadership</h3>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span>Product Strategy</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="progress-bar" style="width: 0%" data-width="95%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span>Technical Architecture</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="progress-bar" style="width: 0%" data-width="90%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span>Team Leadership</span>
+                        <span>92%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="progress-bar" style="width: 0%" data-width="92%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span>AI Integration</span>
+                        <span>88%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="progress-bar" style="width: 0%" data-width="88%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-xl font-semibold mb-5">Product Craft</h3>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span>User Experience Design</span>
+                        <span>93%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="progress-bar" style="width: 0%" data-width="93%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span>Innovation Process</span>
+                        <span>97%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="progress-bar" style="width: 0%" data-width="97%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span>Market Validation</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="progress-bar" style="width: 0%" data-width="85%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span>Voice & Conversation Design</span>
+                        <span>82%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="progress-bar" style="width: 0%" data-width="82%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tag Cloud -->
+        <div class="mt-16 flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            <span class="skill-tag px-4 py-2 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Product Leadership</span>
+            <span class="skill-tag px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200">AI Product Development</span>
+            <span class="skill-tag px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200">Technical Strategy</span>
+            <span class="skill-tag px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full hover:bg-yellow-200">UX Design</span>
+            <span class="skill-tag px-4 py-2 bg-red-100 text-red-800 rounded-full hover:bg-red-200">Team Leadership</span>
+            <span class="skill-tag px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full hover:bg-indigo-200">Machine Learning</span>
+            <span class="skill-tag px-4 py-2 bg-pink-100 text-pink-800 rounded-full hover:bg-pink-200">B2C Product</span>
+            <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200">B2B Solutions</span>
+            <span class="skill-tag px-4 py-2 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Voice Interfaces</span>
+            <span class="skill-tag px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200">Startup Founder</span>
+            <span class="skill-tag px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200">Technical Advisory</span>
+            <span class="skill-tag px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full hover:bg-yellow-200">Software Engineering</span>
+        </div>
+    </div>
+
+    <!-- Philosophy Section -->
+    <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-8">My Innovation Philosophy</h2>
+                <p class="text-xl italic mb-6">"The most powerful products aren't just built—they're discovered at the intersection of technical possibility, user need, and business opportunity."</p>
+                <p class="text-lg">I believe in the relentless pursuit of products that matter. Technology should solve real problems, delight users, and create meaningful value. That's the standard I've applied from early web pioneers to today's AI revolution.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Timeline -->
+    <div class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold mb-12 text-center">Product Highlights</h2>
+        
+        <div class="max-w-3xl mx-auto">
+            <div class="timeline-item pl-10">
+                <h3 class="text-xl font-semibold">2025</h3>
+                <p class="text-lg">makingaiagents.com: Helping others harness the power of AI Agents</p>
+            </div>
+            <div class="timeline-item pl-10">
+                <h3 class="text-xl font-semibold">2023</h3>
+                <p class="text-lg">Project Teardrop: AI-powered video generation from music using Stable Diffusion</p>
+            </div>
+            
+            <div class="timeline-item pl-10">
+                <h3 class="text-xl font-semibold">2021-2022</h3>
+                <p class="text-lg">Knowcast (Founder): Mobile app for podcast note-taking</p>
+            </div>
+            
+            <div class="timeline-item pl-10">
+                <h3 class="text-xl font-semibold">2017-2018</h3>
+                <p class="text-lg">CognitionX: cutting edge NLP & Chatbot Research Services</p>
+            </div>
+            <div class="timeline-item pl-10">
+                <h3 class="text-xl font-semibold">2016-2017</h3>
+                <p class="text-lg">UK Govt Dept Work & Pensions: Created & Led R&D Team</p>
+            </div>
+            
+            <div class="timeline-item pl-10">
+                <h3 class="text-xl font-semibold">2012-2014</h3>
+                <p class="text-lg">Google Pitch Now: Senior Product Manager for core sales infrastructure</p>
+            </div>
+            
+            <div class="timeline-item pl-10">
+                <h3 class="text-xl font-semibold">2003-2006</h3>
+                <p class="text-lg">Friends Provident Insurance: Tech Lead of 28 person team for award-winning insurance product</p>
+            </div>
+            
+            <div class="timeline-item pl-10">
+                <h3 class="text-xl font-semibold">2002</h3>
+                <p class="text-lg">Telefonica: Tech Lead for suite of online ecommerce products including games and video streaming</p>
+            </div>
+            <div class="timeline-item pl-10">
+                <h3 class="text-xl font-semibold">1999-2000</h3>
+                <p class="text-lg">eDreams: software engineer for online travel company</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-8">Let's Connect</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto">Ready to discuss your next innovative project? I'm always open to interesting conversations about pushing the boundaries of what's possible.</p>
+            
+            <div class="flex flex-wrap justify-center gap-8">
+                <a href="mailto:hello@greatcreations.ltd" class="flex flex-col items-center hover:text-blue-400 transition-colors">
+                    <i class="fas fa-envelope text-4xl mb-3"></i>
+                    <span>hello@greatcreations.ltd</span>
+                </a>
+                <a href="https://greatcreations.ltd" class="flex flex-col items-center hover:text-blue-400 transition-colors">
+                    <i class="fas fa-globe text-4xl mb-3"></i>
+                    <span>greatcreations.ltd</span>
+                </a>
+                <a href="#" class="flex flex-col items-center hover:text-blue-400 transition-colors">
+                    <i class="fab fa-linkedin text-4xl mb-3"></i>
+                    <span><a href="https://linkedin.com/in/JulianHarris">Julian Harris</a></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-gray-800 text-gray-400 py-8 text-center">
+        <div class="container mx-auto px-4">
+            <p>© 2025 Julian@GreatCreations.Ltd</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize animations and charts when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bars
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                setTimeout(() => {
+                    bar.style.width = bar.getAttribute('data-width');
+                }, 300);
+            });
+            
+            // Setup experience chart
+            const ctx = document.getElementById('experienceChart').getContext('2d');
+            const experienceChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['AI Engineering', 'Agile Delivery', 'Generative AI', 'Product Management', 'Technical Leadership', 'UX Design'],
+                    datasets: [{
+                        label: 'Expertise Coverage',
+                        data: [90, 85, 88, 95, 92, 87],
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(52, 152, 219, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 50,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+            
+            // Register GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Animate cards on scroll
+            gsap.utils.toArray('.card').forEach(card => {
+                gsap.from(card, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top bottom-=100",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+            
+            // Animate timeline items
+            gsap.utils.toArray('.timeline-item').forEach(item => {
+                gsap.from(item, {
+                    x: -50,
+                    opacity: 0,
+                    duration: 0.6,
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top bottom-=100",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+            
+            // Animate skill tags with stagger
+            gsap.from('.skill-tag', {
+                opacity: 0,
+                y: 20,
+                duration: 0.5,
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: '.skills-cloud',
+                    start: "top bottom-=100"
+                }
+            });
+        });
+    </script>
+</body>
+</html>
